@@ -1,6 +1,5 @@
 package com.charlie.settpscommands;
 
-import java.util.List;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
@@ -11,16 +10,16 @@ public class TpsChecker extends TimerTask {
 	/*private long mills = System.currentTimeMillis();
 	private int time;*/
 	private double TPS = 20.0D;
-	private List<String> commands;
-	private String message;
-	private double tpslimit;
-	private List<Integer> dc;
+	//private List<String> commands;
+	//private String message;
+	//private double tpslimit;
+	//private List<Integer> dc;
 	public TpsChecker(SetTpsCommands p){
 		plugin = p;
-		commands = plugin.getConfig().getStringList("commands");
-		message = plugin.getConfig().getString("message");
-		tpslimit = plugin.getConfig().getDouble("tpslimit");
-		dc = plugin.getConfig().getIntegerList("downcount");
+		//commands = plugin.getConfig().getStringList("commands");
+		//message = plugin.getConfig().getString("message");
+		//tpslimit = plugin.getConfig().getDouble("tpslimit");
+		//dc = plugin.getConfig().getIntegerList("downcount");
 	}
 	@Override
 	public void run() {
@@ -41,17 +40,17 @@ public class TpsChecker extends TimerTask {
 				this.time = 0;
 				this.mills = System.currentTimeMillis();
 			}*/
-			if(this.TPS < tpslimit){
-				for(int i = 0;i < dc.size() - 1;i++){
+			if(this.TPS < plugin.getConfig().getDouble("tpslimit")){
+				for(int i = 0;i < plugin.getConfig().getIntegerList("downcount").size() - 1;i++){
 				/*for(int i = 0;i < dc.size();i++){*/
 					//if(dc.get(i) < 1) break;
-					plugin.getServer().broadcastMessage(String.format(message, dc.get(i)));
-					TimeUnit.SECONDS.sleep(dc.get(i) - dc.get(i + 1));
+					plugin.getServer().broadcastMessage(String.format(plugin.getConfig().getString("message"), plugin.getConfig().getIntegerList("downcount").get(i)));
+					TimeUnit.SECONDS.sleep(plugin.getConfig().getIntegerList("downcount").get(i) - plugin.getConfig().getIntegerList("downcount").get(i + 1));
 					/*if(i == dc.size() - 1)
 						TimeUnit.SECONDS.sleep(dc.get(i));
 					else
 						TimeUnit.SECONDS.sleep(dc.get(i) - dc.get(i + 1));*/
-					for(String c : commands){
+					for(String c : plugin.getConfig().getStringList("commands")){
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), c);
 					}
 				}

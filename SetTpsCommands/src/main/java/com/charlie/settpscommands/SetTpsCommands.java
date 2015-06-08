@@ -24,9 +24,9 @@ public final class SetTpsCommands extends JavaPlugin {
 			switch(args[0]){
 			case "reload":
 				this.reloadConfig();
-				t.cancel();
-				t = new Timer();
-				t.schedule(new TpsChecker(this),0,getConfig().getLong("interval"));
+				//t.cancel();
+				//t = new Timer();
+				//t.schedule(new TpsChecker(this),0,getConfig().getLong("interval"));
 				sender.sendMessage("重新加载成功");
 				return true;
 			default:
