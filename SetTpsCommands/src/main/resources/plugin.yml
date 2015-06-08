@@ -1,0 +1,12 @@
+name: SetTpsCommands
+main: com.charlie.settpscommands.SetTpsCommands
+version: 0.2
+commands:
+  stc:
+    description: '重置配置文件。'
+    usage: '/stc reload'
+    permission: 'settpscommands.reload'
+    permission-message: '你无权这样做。'
+permissions:
+    setonoff:
+        description: '重置配置文件。'
